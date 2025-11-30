@@ -11,24 +11,24 @@
 
 <div class="container">
     <div class="page-header-alt">
-        <h1 style="font-family: {{ g.settings.get('new_title_font') }}; font-size: {{ g.settings.get('new_title_size') }}rem;">
+        <h1 style="font-family: {{ g.settings.get('new_title_font') }}; font-size: {{ g.settings.get('new_title_size', '3.0') }}rem;">
             {{ g.settings.get('new_title_' + g.lang) }}
         </h1>
-        <p style="font-family: {{ g.settings.get('new_body_font') }}; font-size: {{ g.settings.get('new_body_size') }}rem;">
+        <p style="font-family: {{ g.settings.get('new_body_font') }}; font-size: {{ g.settings.get('new_body_size', '1.2') }}rem;">
             {{ g.settings.get('new_body_' + g.lang) }}
         </p>
     </div>
     
     {% if g.settings.get('new_banner_upload') %}
     <a href="{{ g.settings.get('new_banner_link') }}" class="full-width-banner">
-        <img src="{{ url_for('static', filename='uploads/' + g.settings.new_banner_upload) }}">
+        <img src="{{ g.settings.new_banner_upload }}">
     </a>
     {% endif %}
 
     <div class="p-grid">
         {% for product in products %}
         <a href="{{ url_for('product_detail', product_id=product.id) }}" class="p-card">
-            <div class="p-img-box"><img src="{{ url_for('static', filename='uploads/' + product.main_image) }}"></div>
+            <div class="p-img-box"><img src="{{ product.main_image }}"></div>
             <div class="p-meta">
                 <div class="p-title">{{ product['title_' + g.lang] }}</div>
                 <div class="p-price">${{ product.price }}</div>

@@ -105,7 +105,7 @@ legend {
             <h5 style="margin-top: 5px;">主图</h5>
             {% if product['main_image'] %}
                 <p style="font-size: 0.9rem; color: #555;">当前主图:</p>
-                <img src="{{ url_for('static', filename='uploads/' + product['main_image']) }}" class="image-preview">
+                <img src="{{ product['main_image'] }}" class="image-preview">
             {% endif %}
             <label>替换主图</label><input type="file" name="main_image">
 
@@ -115,7 +115,7 @@ legend {
             <p style="font-size: 0.9rem; color: #555;">现有 A+ 图片 (共 {{ a_plus_imgs | length }} 张):</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
                 {% for img in a_plus_imgs %}
-                    <img src="{{ url_for('static', filename='uploads/' + img) }}" style="height: 60px; object-fit: cover; border: 1px solid #ddd; border-radius: 3px;">
+                    <img src="{{ img }}" style="height: 60px; object-fit: cover; border: 1px solid #ddd; border-radius: 3px;">
                 {% endfor %}
             </div>
             {% endif %}

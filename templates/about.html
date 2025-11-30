@@ -1,8 +1,7 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <style>
-/* 修复 3: 竖向排列，不裁切 */
-.about-gallery {
+  /* 修复 3: 竖向排列，不裁切 */
+  .about-gallery {
     display: flex;
     flex-direction: column; /* 竖向 */
     gap: 40px;
@@ -10,51 +9,58 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-}
-.about-image-slot {
+  }
+  .about-image-slot {
     text-align: center;
-}
-.about-image-slot img {
+  }
+  .about-image-slot img {
     width: 100%;
     height: auto; /* 自适应高度，不裁切 */
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: block;
-}
-.about-image-slot p {
+  }
+  .about-image-slot p {
     margin-top: 15px;
     font-weight: bold;
     color: var(--primary);
     font-size: 1.1em;
-}
+  }
 </style>
 
-<div class="container" style="padding-top: 50px; padding-bottom: 80px;">
-    
-    <div class="about-header" style="text-align: center; margin-bottom: 40px;">
-        <h1 style="font-family: '{{ g.settings.get('about_page_title_font') }}'; font-size: {{ g.settings.get('about_page_title_size') }}rem; color: var(--primary);">
-            {{ g.settings.get('about_page_title_' + g.lang, 'The Full PeacePet Story') }}
-        </h1>
-    </div>
+<div class="container" style="padding-top: 50px; padding-bottom: 80px">
+  <div class="about-header" style="text-align: center; margin-bottom: 40px">
+    <h1
+      style="font-family: '{{ g.settings.get('about_page_title_font') }}'; font-size: {{ g.settings.get('about_page_title_size', '2.5') }}rem; color: var(--primary);"
+    >
+      {{ g.settings.get('about_page_title_' + g.lang, 'The Full PeacePet Story')
+      }}
+    </h1>
+  </div>
 
-    <div class="about-body" style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
-        <p style="font-family: '{{ g.settings.get('about_page_body_font') }}'; font-size: {{ g.settings.get('about_page_body_size') }}rem; color: #444;">
-            {{ g.settings.get('about_page_body_' + g.lang, 'Our story begins...') }}
-        </p>
-    </div>
+  <div
+    class="about-body"
+    style="max-width: 800px; margin: 0 auto; line-height: 1.8"
+  >
+    <p
+      style="font-family: '{{ g.settings.get('about_page_body_font') }}'; font-size: {{ g.settings.get('about_page_body_size', '1.0') }}rem; color: #444;"
+    >
+      {{ g.settings.get('about_page_body_' + g.lang, 'Our story begins...') }}
+    </p>
+  </div>
 
-    <div class="about-gallery">
-        {% for item in about_images_data %}
-            {% if item.src %}
-            <div class="about-image-slot">
-                <img src="{{ url_for('static', filename='uploads/' + item.src) }}" alt="{{ item.caption_en }}">
-                {% if item['caption_' + g.lang] %}
-                    <p>{{ item['caption_' + g.lang] }}</p>
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
+  <div class="about-gallery">
+    {% for item in about_images_data %} {% if item.src %}
+    <div class="about-image-slot">
+      <img
+        src="{{ item.src }}"
+        alt="{{ item.caption_en }}"
+      />
+      {% if item['caption_' + g.lang] %}
+      <p>{{ item['caption_' + g.lang] }}</p>
+      {% endif %}
     </div>
-
+    {% endif %} {% endfor %}
+  </div>
 </div>
 {% endblock %}

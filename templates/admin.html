@@ -74,7 +74,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
             <tr><th>图片</th><th>名称</th><th>分类</th><th>价格</th><th>操作</th></tr>
             {% for p in products_list %}
             <tr>
-                <td><img src="{{ url_for('static', filename='uploads/' + p.main_image) }}"></td>
+                <td><img src="{{ p.main_image }}"></td>
                 <td>{{ p.title_zh }} <br> <small style="color:#777">{{ p.title_en }}</small></td>
                 <td>{{ p.category_name_zh }}</td>
                 <td>{{ p.price }}</td>
@@ -107,7 +107,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
             <tr><th>Banner</th><th>名称</th><th>Slug</th><th>操作</th></tr>
             {% for cat in categories_list %}
             <tr>
-                <td>{% if cat.image %}<img src="{{ url_for('static', filename='uploads/' + cat.image) }}">{% endif %}</td>
+                <td>{% if cat.image %}<img src="{{ cat.image }}">{% endif %}</td>
                 <td>{{ cat.name_zh }} / {{ cat.name_en }}</td>
                 <td>{{ cat.slug }}</td>
                 <td>
@@ -130,7 +130,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
                         <label>站点 Logo</label>
                         <input type="file" name="site_logo_file" class="form-control">
                         {% if settings_dict.site_logo %}
-                            <div style="margin: 5px 0;"><img src="{{ url_for('static', filename='uploads/' + settings_dict.site_logo) }}" style="height: 40px;"> <label><input type="checkbox" name="delete_logo"> 删除</label></div>
+                            <div style="margin: 5px 0;"><img src="{{ settings_dict.site_logo }}" style="height: 40px;"> <label><input type="checkbox" name="delete_logo"> 删除</label></div>
                         {% endif %}
                     </div>
                     <div><label>联系邮箱</label><input type="text" name="contact_email" value="{{ settings_dict.contact_email }}" class="form-control"></div>
@@ -152,7 +152,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
                 </div>
                 <label>Banner 图片上传</label>
                 {% if settings_dict.hero_banner_upload %}
-                    <div style="margin: 5px 0;"><img src="{{ url_for('static', filename='uploads/' + settings_dict.hero_banner_upload) }}" style="height: 100px;"> <label><input type="checkbox" name="delete_hero_banner_upload"> 删除</label></div>
+                    <div style="margin: 5px 0;"><img src="{{ settings_dict.hero_banner_upload }}" style="height: 100px;"> <label><input type="checkbox" name="delete_hero_banner_upload"> 删除</label></div>
                 {% endif %}
                 <input type="file" name="hero_banner_upload_file" class="form-control">
 
@@ -204,7 +204,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
                 </div>
                  <label>侧边图片上传</label>
                 {% if settings_dict.home_slogan_img %}
-                    <div style="margin: 5px 0;"><img src="{{ url_for('static', filename='uploads/' + settings_dict.home_slogan_img) }}" style="height: 80px;"> <label><input type="checkbox" name="delete_home_slogan_image"> 删除</label></div>
+                    <div style="margin: 5px 0;"><img src="{{ settings_dict.home_slogan_img }}" style="height: 80px;"> <label><input type="checkbox" name="delete_home_slogan_image"> 删除</label></div>
                 {% endif %}
                 <input type="file" name="home_slogan_image_file" class="form-control">
             </fieldset>
@@ -233,7 +233,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
                 </div>
                 <label>Banner 图片上传</label>
                 {% if settings_dict.deals_banner_upload %}
-                    <div style="margin: 5px 0;"><img src="{{ url_for('static', filename='uploads/' + settings_dict.deals_banner_upload) }}" style="height: 60px;"> <label><input type="checkbox" name="delete_deals_banner"> 删除图片</label></div>
+                    <div style="margin: 5px 0;"><img src="{{ settings_dict.deals_banner_upload }}" style="height: 60px;"> <label><input type="checkbox" name="delete_deals_banner"> 删除图片</label></div>
                 {% endif %}
                 <input type="file" name="deals_banner_file" class="form-control">
                 <div style="margin-top:10px;"><label>Banner 链接</label><input type="text" name="deals_banner_link" value="{{ settings_dict.deals_banner_link }}" class="form-control"></div>
@@ -263,7 +263,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
                 </div>
                 <label>Banner 图片上传</label>
                 {% if settings_dict.new_banner_upload %}
-                    <div style="margin: 5px 0;"><img src="{{ url_for('static', filename='uploads/' + settings_dict.new_banner_upload) }}" style="height: 60px;"> <label><input type="checkbox" name="delete_new_banner"> 删除图片</label></div>
+                    <div style="margin: 5px 0;"><img src="{{ settings_dict.new_banner_upload }}" style="height: 60px;"> <label><input type="checkbox" name="delete_new_banner"> 删除图片</label></div>
                 {% endif %}
                 <input type="file" name="new_banner_file" class="form-control">
                 <div style="margin-top:10px;"><label>Banner 链接</label><input type="text" name="new_banner_link" value="{{ settings_dict.new_banner_link }}" class="form-control"></div>
@@ -324,7 +324,7 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
                     <div class="input-group-row">
                         <div style="flex:0 0 100px;">
                              {% if item.src %}
-                                <img src="{{ url_for('static', filename='uploads/' + item.src) }}" style="width:80px; height:80px; object-fit:cover;">
+                                <img src="{{ item.src }}" style="width:80px; height:80px; object-fit:cover;">
                                 <label style="color:red; font-size:0.8em;"><input type="checkbox" name="delete_{{ item.key }}"> 删除</label>
                              {% else %}
                                 <div style="width:80px; height:80px; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">No Img</div>
@@ -356,23 +356,6 @@ legend { width: auto; padding: 0 10px; font-weight: bold; color: var(--primary);
             <button class="btn" style="background: var(--primary); color: white; margin-top: 10px;">提交</button>
         </form>
     </div>
-
-    <div id="orders" class="tab-pane {% if active_tab == 'orders' %}active{% endif %}">
-        <table class="admin-table">
-            <tr><th>ID</th><th>产品</th><th>客户</th><th>联系</th><th>日期</th></tr>
-            {% for o in orders %}
-            <tr>
-                <td>{{ o.id }}</td>
-                <td>{{ o.product_name }}</td>
-                <td>{{ o.customer_name }}</td>
-                <td>{{ o.contact_info }}</td>
-                <td>{{ o.date }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-
-</div>
 
 <script>
 function showTab(tabId, btn) {

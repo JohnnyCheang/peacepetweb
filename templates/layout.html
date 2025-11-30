@@ -22,7 +22,7 @@
 
             {% if g.settings.get('site_logo') %}
 
-                <img src="{{ url_for('static', filename='uploads/' + g.settings['site_logo']) }}" alt="PeacePet Logo">
+                <img src="{{ g.settings['site_logo'] }}" alt="PeacePet Logo">
 
             {% else %}
 

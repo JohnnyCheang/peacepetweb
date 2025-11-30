@@ -1,40 +1,71 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <style>
-/* 修复 6: 背景透明 */
-.page-header-alt { text-align: center; padding: 60px 0 30px 0; background: transparent; }
-.page-header-alt h1 { font-family: 'Playfair Display', serif; font-size: 3em; color: var(--accent); margin-bottom: 10px; }
-.page-header-alt p { font-size: 1.2em; color: #666; max-width: 800px; margin: 0 auto; }
-.full-width-banner { width: 100vw; margin-left: calc(-50vw + 50%); margin-bottom: 60px; display: block; }
-.full-width-banner img { width: 100%; height: auto; display: block; max-height: 500px; object-fit: cover; }
+  /* 修复 6: 背景透明 */
+  .page-header-alt {
+    text-align: center;
+    padding: 60px 0 30px 0;
+    background: transparent;
+  }
+  .page-header-alt h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 3em;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .page-header-alt p {
+    font-size: 1.2em;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .full-width-banner {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-bottom: 60px;
+    display: block;
+  }
+  .full-width-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 500px;
+    object-fit: cover;
+  }
 </style>
 
 <div class="container">
-    <div class="page-header-alt">
-        <h1 style="font-family: {{ g.settings.get('deals_title_font') }}; font-size: {{ g.settings.get('deals_title_size') }}rem;">
-            {{ g.settings.get('deals_title_' + g.lang) }}
-        </h1>
-        <p style="font-family: {{ g.settings.get('deals_body_font') }}; font-size: {{ g.settings.get('deals_body_size') }}rem;">
-            {{ g.settings.get('deals_body_' + g.lang) }}
-        </p>
-    </div>
-    
-    {% if g.settings.get('deals_banner_upload') %}
-    <a href="{{ g.settings.get('deals_banner_link') }}" class="full-width-banner">
-        <img src="{{ url_for('static', filename='uploads/' + g.settings.deals_banner_upload) }}">
-    </a>
-    {% endif %}
+  <div class="page-header-alt">
+    <h1
+      style="font-family: {{ g.settings.get('deals_title_font') }}; font-size: {{ g.settings.get('deals_title_size', '3.0') }}rem;"
+    >
+      {{ g.settings.get('deals_title_' + g.lang) }}
+    </h1>
+    <p
+      style="font-family: {{ g.settings.get('deals_body_font') }}; font-size: {{ g.settings.get('deals_body_size', '1.2') }}rem;"
+    >
+      {{ g.settings.get('deals_body_' + g.lang) }}
+    </p>
+  </div>
 
-    <div class="p-grid">
-        {% for product in products %}
-        <a href="{{ url_for('product_detail', product_id=product.id) }}" class="p-card">
-            <div class="p-img-box"><img src="{{ url_for('static', filename='uploads/' + product.main_image) }}"></div>
-            <div class="p-meta">
-                <div class="p-title">{{ product['title_' + g.lang] }}</div>
-                <div class="p-price">${{ product.price }}</div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
+  {% if g.settings.get('deals_banner_upload') %}
+  <a href="{{ g.settings.get('deals_banner_link') }}" class="full-width-banner">
+    <img src="{{ g.settings.deals_banner_upload }}" />
+  </a>
+  {% endif %}
+
+  <div class="p-grid">
+    {% for product in products %}
+    <a
+      href="{{ url_for('product_detail', product_id=product.id) }}"
+      class="p-card"
+    >
+      <div class="p-img-box"><img src="{{ product.main_image }}" /></div>
+      <div class="p-meta">
+        <div class="p-title">{{ product['title_' + g.lang] }}</div>
+        <div class="p-price">${{ product.price }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

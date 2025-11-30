@@ -35,7 +35,7 @@
         {% for product in products %}
         <a href="{{ url_for('product_detail', product_id=product.id) }}" class="p-card">
             <div class="p-img-box">
-                <img src="{{ url_for('static', filename='uploads/' + product.main_image) }}" alt="{{ product.title_en }}">
+                <img src="{{ product.main_image }}" alt="{{ product.title_en }}">
             </div>
             <div class="p-meta">
                 <div class="p-title" style="font-weight: bold; font-size: 1.1em;">

@@ -6,7 +6,7 @@
     <div class="detail-wrapper">
         <div class="detail-left">
             {% if product.main_image %}
-                <img src="{{ url_for('static', filename='uploads/' + product.main_image) }}" alt="{{ product.title_en }}">
+                <img src="{{ product.main_image }}" alt="{{ product.title_en }}">
             {% else %}
                 <div style="height: 400px; background: #eee; display: flex; align-items: center; justify-content: center; color: #999;">No Image</div>
             {% endif %}
@@ -52,7 +52,7 @@
         {% if a_plus_imgs %}
             {% for img in a_plus_imgs %}
                 {% if img %}
-                    <img src="{{ url_for('static', filename='uploads/' + img) }}" alt="Detail Image">
+                    <img src="{{ img }}" alt="Detail Image">
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -69,7 +69,7 @@
                 </div>
                 <p style="color: #666; font-style: italic;">"{{ review['text_' + g.lang] }}"</p>
                 {% if review.image %}
-                <img src="{{ url_for('static', filename='uploads/' + review.image) }}" style="margin-top: 15px; max-height: 100px; border-radius: 4px;">
+                <img src="{{ review.image }}" style="margin-top: 15px; max-height: 100px; border-radius: 4px;">
                 {% endif %}
             </div>
             {% endfor %}

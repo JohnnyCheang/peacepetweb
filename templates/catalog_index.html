@@ -1,43 +1,53 @@
-{% extends "layout.html" %}
-
-{% block content %}
+{% extends "layout.html" %} {% block content %}
 <style>
-.catalog-header {
+  .catalog-header {
     text-align: center;
     padding: 60px 0 40px 0;
-}
-.catalog-header h1 {
+  }
+  .catalog-header h1 {
     margin-bottom: 10px;
     color: var(--primary);
-}
-.catalog-header p {
+  }
+  .catalog-header p {
     color: #666;
-}
+  }
 </style>
 
 <div class="container-tight">
-    <div class="catalog-header">
-        <h1 style="font-family: {{ g.settings.get('catalog_title_font') }}; font-size: {{ g.settings.get('catalog_title_size') }}rem;">
-            {{ g.settings.get('catalog_title_' + g.lang, 'Product Collection') }}
-        </h1>
-        <p style="font-family: {{ g.settings.get('catalog_body_font') }}; font-size: {{ g.settings.get('catalog_body_size') }}rem;">
-            {{ g.settings.get('catalog_body_' + g.lang, 'Discover our premium range of canine gear.') }}
-        </p>
-    </div>
+  <div class="catalog-header">
+    <h1
+      style="font-family: {{ g.settings.get('catalog_title_font') }}; font-size: {{ g.settings.get('catalog_title_size', '3.0') }}rem;"
+    >
+      {{ g.settings.get('catalog_title_' + g.lang, 'Product Collection') }}
+    </h1>
+    <p
+      style="font-family: {{ g.settings.get('catalog_body_font') }}; font-size: {{ g.settings.get('catalog_body_size', '1.2') }}rem;"
+    >
+      {{ g.settings.get('catalog_body_' + g.lang, 'Discover our premium range of
+      canine gear.') }}
+    </p>
+  </div>
 
-    <div class="cat-grid">
-        {% for cat in g.categories %}
-        <a href="{{ url_for('category_detail', slug=cat['slug']) }}" class="cat-card">
-            {% if cat['image'] %}
-                <img src="{{ url_for('static', filename='uploads/' + cat['image']) }}" alt="{{ cat.name_en }}">
-            {% else %}
-                <div style="position:absolute; width:100%; height:100%; background:#ccc;"></div>
-            {% endif %}
-            
-            <div class="cat-overlay"></div>
-            <div class="cat-title">{{ cat['name_zh'] if g.lang == 'zh' else cat['name_en'] }}</div>
-        </a>
-        {% endfor %}
-    </div>
+  <div class="cat-grid">
+    {% for cat in g.categories %}
+    <a
+      href="{{ url_for('category_detail', slug=cat['slug']) }}"
+      class="cat-card"
+    >
+      {% if cat['image'] %}
+      <img src="{{ cat['image'] }}" alt="{{ cat.name_en }}" />
+      {% else %}
+      <div
+        style="position: absolute; width: 100%; height: 100%; background: #ccc"
+      ></div>
+      {% endif %}
+
+      <div class="cat-overlay"></div>
+      <div class="cat-title">
+        {{ cat['name_zh'] if g.lang == 'zh' else cat['name_en'] }}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

@@ -54,7 +54,7 @@
         <h4 style="margin-top: 25px;">二级页面 Banner 图</h4>
         {% if category['image'] %}
             <p style="font-size: 0.9rem; color: #555;">当前 Banner:</p>
-            <img src="{{ url_for('static', filename='uploads/' + category['image']) }}" style="max-height: 100px; border: 1px solid #ddd; border-radius: 5px; object-fit: contain; margin-bottom: 10px; display: block;">
+            <img src="{{ category['image'] }}" style="max-height: 100px; border: 1px solid #ddd; border-radius: 5px; object-fit: contain; margin-bottom: 10px; display: block;">
             
             <label style="color: red; display: flex; align-items: center; cursor: pointer; margin-bottom: 15px;"><input type="checkbox" name="delete_image" style="width: 16px; margin-right: 5px;"> 删除当前 Banner 图片</label>
         {% endif %}

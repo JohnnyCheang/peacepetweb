@@ -62,14 +62,14 @@
 
 <main>
     <header class="hero-banner" style="background-image: url('{{ 
-            url_for('static', filename='uploads/' + g.settings['hero_banner_upload']) if g.settings['hero_banner_type'] == 'upload' and g.settings['hero_banner_upload'] 
+            g.settings['hero_banner_upload'] if g.settings['hero_banner_type'] == 'upload' and g.settings['hero_banner_upload'] 
             else g.settings['hero_banner_url'] 
         }}');">
         <div class="container">
-            <h1 style="font-family: '{{ g.settings.get('hero_title_font') }}', serif; font-size: {{ g.settings.get('hero_title_size') }}rem;">
+            <h1 style="font-family: '{{ g.settings.get('hero_title_font') }}', serif; font-size: {{ g.settings.get('hero_title_size', '3.5') }}rem;">
                 {{ g.settings.get('hero_title_' + g.lang, 'The Art of Protection') }}
             </h1>
-            <p style="font-family: '{{ g.settings.get('hero_slogan_font') }}', sans-serif; font-size: {{ g.settings.get('hero_slogan_size') }}rem;">
+            <p style="font-family: '{{ g.settings.get('hero_slogan_font') }}', sans-serif; font-size: {{ g.settings.get('hero_slogan_size', '1.2') }}rem;">
                 {{ g.settings.get('hero_slogan_' + g.lang, 'PROFESSIONAL GRADE GEAR') }}
             </p>
             <a href="{{ url_for('catalog_index') }}" class="btn-hero">
@@ -82,15 +82,15 @@
         <div class="container slogan-grid {% if not g.settings.get('home_slogan_img') %}no-img{% endif %}">
             {% if g.settings.get('home_slogan_img') %}
             <div class="slogan-img">
-                <img src="{{ url_for('static', filename='uploads/' + g.settings['home_slogan_img']) }}">
+                <img src="{{ g.settings['home_slogan_img'] }}">
             </div>
             {% endif %}
             
             <div class="slogan-text">
-                <h2 style="font-family: '{{ g.settings.get('home_slogan_title_font') }}', serif; font-size: {{ g.settings.get('home_slogan_title_size') }}rem; color: var(--primary); margin-bottom: 20px;">
+                <h2 style="font-family: '{{ g.settings.get('home_slogan_title_font') }}', serif; font-size: {{ g.settings.get('home_slogan_title_size', '2.0') }}rem; color: var(--primary); margin-bottom: 20px;">
                     {{ g.settings.get('home_slogan_title_' + g.lang, 'Our Mission') }}
                 </h2>
-                <p style="font-family: '{{ g.settings.get('home_slogan_body_font') }}', sans-serif; font-size: {{ g.settings.get('home_slogan_body_size') }}rem; line-height: 1.8; color: #555;">
+                <p style="font-family: '{{ g.settings.get('home_slogan_body_font') }}', sans-serif; font-size: {{ g.settings.get('home_slogan_body_size', '1.1') }}rem; line-height: 1.8; color: #555;">
                     {{ g.settings.get('home_slogan_body_' + g.lang, 'We strive to provide premium gear...') }}
                 </p>
             </div>
@@ -102,7 +102,7 @@
         <div class="p-grid">
             {% for p in products %}
             <a href="{{ url_for('product_detail', product_id=p.id) }}" class="p-card">
-                <div class="p-img-box"><img src="{{ url_for('static', filename='uploads/' + p.main_image) }}"></div>
+                <div class="p-img-box"><img src="{{ p.main_image }}"></div>
                 <div class="p-meta">
                     <div class="p-title">{{ p['title_' + g.lang] }}</div>
                     <div class="p-price">${{ p.price }}</div>
