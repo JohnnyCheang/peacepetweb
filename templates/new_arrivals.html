@@ -22,30 +22,50 @@
         margin: 0 auto;
     }
 
-    </a> {
-        % endif %
+    .full-width-banner {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-bottom: 60px;
+        display: block;
     }
 
-    <div class="p-grid"> {
-        % for product in products %
+    .full-width-banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 500px;
+        object-fit: cover;
     }
+</style>
 
-    <a href="{{ url_for('product_detail', product_id=product.id) }}" class="p-card"><div class="p-img-box"><img src="{{ product.main_image }}"></div><div class="p-meta"><div class="p-title"> {
-            {
-            product['title_'+g.lang]
-        }
-    }
+<div class="container">
+    <div class="page-header-alt">
+        <h1 class="responsive-title"
+            style="font-family: {{ g.settings.get('new_title_font') }}; --desktop-font-size: {{ g.settings.get('new_title_size', '3.0') }}rem; font-size: var(--desktop-font-size);">
+            {{ g.settings.get('new_title_' + g.lang) }}
+        </h1>
+        <p class="responsive-body"
+            style="font-family: {{ g.settings.get('new_body_font') }}; --desktop-font-size: {{ g.settings.get('new_body_size', '1.2') }}rem; font-size: var(--desktop-font-size);">
+            {{ g.settings.get('new_body_' + g.lang) }}
+        </p>
+    </div>
 
-    </div><div class="p-price">$ {
-            {
-            product.price
-        }
-    }
+    {% if g.settings.get('new_banner_upload') %}
+    <a href="{{ g.settings.get('new_banner_link') }}" class="full-width-banner">
+        <img src="{{ g.settings.new_banner_upload }}">
+    </a>
+    {% endif %}
 
-    </div></div></a> {
-        % endfor %
-    }
-
-    </div></div> {
-        % endblock %
-    }
+    <div class="p-grid">
+        {% for product in products %}
+        <a href="{{ url_for('product_detail', product_id=product.id) }}" class="p-card">
+            <div class="p-img-box"><img src="{{ product.main_image }}"></div>
+            <div class="p-meta">
+                <div class="p-title">{{ product['title_' + g.lang] }}</div>
+                <div class="p-price">${{ product.price }}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
