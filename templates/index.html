@@ -109,43 +109,53 @@
             text-align: center;
         }
 
-        /* Hero Banner Mobile */
-        .hero-banner {
-            min-height: auto;
-            flex-direction: column;
-            display: flex;
-        }
-
-        .hero-bg {
-            position: relative;
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            z-index: 0;
-        }
-
-        .hero-banner::before {
-            display: none;
-        }
-
-        .hero-banner .container {
-            background: var(--primary);
-            width: 100%;
-            padding: 40px 20px;
-            color: white;
-            box-sizing: border-box;
-        }
-
-        .hero-banner h1 {
-            font-size: 2rem;
-            text-shadow: none;
-        }
+        /* Note: Hero Banner mobile styles are now handled in style.css to support the overlay requirement */
     }
 </style>
 
-<section class="slogan-section">
-    <div class="container slogan-grid {% if not g.settings.get('home_slogan_img') %}no-img{% endif %}">
-        Essentials' if g.lang == 'en' else '精选产品' }}</h2>
+<main>
+    <header class="hero-banner">
+        <img src="{{ g.settings['hero_banner_upload'] if g.settings['hero_banner_type'] == 'upload' and g.settings['hero_banner_upload'] else g.settings['hero_banner_url'] }}"
+            class="hero-bg" alt="Hero Banner">
+        <div class="container">
+            <h1 class="responsive-title"
+                style="font-family: '{{ g.settings.get('hero_title_font') }}', serif; --desktop-font-size: {{ g.settings.get('hero_title_size', '3.5') }}rem; font-size: var(--desktop-font-size);">
+                {{ g.settings.get('hero_title_' + g.lang, 'The Art of Protection') }}
+            </h1>
+            <p class="responsive-body"
+                style="font-family: '{{ g.settings.get('hero_slogan_font') }}', sans-serif; --desktop-font-size: {{ g.settings.get('hero_slogan_size', '1.2') }}rem; font-size: var(--desktop-font-size);">
+                {{ g.settings.get('hero_slogan_' + g.lang, 'PROFESSIONAL GRADE GEAR') }}
+            </p>
+            <a href="{{ url_for('catalog_index') }}" class="btn-hero">
+                {{ 'Shop Now' if g.lang == 'en' else '立即选购' }}
+            </a>
+        </div>
+    </header>
+
+    <section class="slogan-section">
+        <div class="container slogan-grid {% if not g.settings.get('home_slogan_img') %}no-img{% endif %}">
+            {% if g.settings.get('home_slogan_img') %}
+            <div class="slogan-img">
+                <img src="{{ g.settings['home_slogan_img'] }}">
+            </div>
+            {% endif %}
+
+            <div class="slogan-text">
+                <h2 class="responsive-title"
+                    style="font-family: '{{ g.settings.get('home_slogan_title_font') }}', serif; --desktop-font-size: {{ g.settings.get('home_slogan_title_size', '2.0') }}rem; font-size: var(--desktop-font-size); color: var(--primary); margin-bottom: 20px;">
+                    {{ g.settings.get('home_slogan_title_' + g.lang, 'Our Mission') }}
+                </h2>
+                <p class="responsive-body"
+                    style="font-family: '{{ g.settings.get('home_slogan_body_font') }}', sans-serif; --desktop-font-size: {{ g.settings.get('home_slogan_body_size', '1.1') }}rem; font-size: var(--desktop-font-size); line-height: 1.8; color: #555;">
+                    {{ g.settings.get('home_slogan_body_' + g.lang, 'We strive to provide premium gear...') }}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="padding: 80px 20px;">
+        <h2 style="text-align: center; margin-bottom: 50px; font-family: 'Playfair Display', serif;">{{ 'Featured
+            Essentials' if g.lang == 'en' else '精选产品' }}</h2>
         <div class="p-grid">
             {% for p in products %}
             <a href="{{ url_for('product_detail', product_id=p.id) }}" class="p-card">
@@ -157,6 +167,6 @@
             </a>
             {% endfor %}
         </div>
-</section>
+    </section>
 </main>
 {% endblock %}

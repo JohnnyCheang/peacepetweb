@@ -544,11 +544,206 @@ nav {
 .hamburger span {
     width: 25px;
     height: 3px;
+}
+
+.detail-price {
+    font-size: 1.8rem;
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.detail-bullets ul {
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.8;
+}
+
+.detail-bullets li {
+    margin-bottom: 10px;
+}
+
+/* A+ 图片区域 */
+.aplus-section {
+    margin-top: 60px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aplus-section img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 修复 1: Catalog Grid (一行两个) */
+.cat-grid {
+    display: grid;
+    /* 强制一行两个 */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    /* 间距稍微调小 */
+    margin-bottom: 80px;
+}
+
+.cat-card {
+    text-decoration: none;
+    color: white;
+    position: relative;
+    height: 450px;
+    /* 稍微调高一点，因为变宽了 */
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    z-index: 1;
+}
+
+.cat-card:hover img {
+    transform: scale(1.05);
+}
+
+.cat-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    transition: background 0.3s;
+}
+
+.cat-card:hover .cat-overlay {
+    background: rgba(47, 79, 79, 0.5);
+}
+
+.cat-title {
+    position: relative;
+    z-index: 3;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    /* 字体变大 */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 3px solid white;
+    padding: 20px 40px;
+}
+
+@media (max-width: 768px) {
+    .cat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 手机端还是单列 */
+}
+
+/* 弹窗样式 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: var(--primary);
+}
+
+.modal-success {
+    text-align: center;
+    display: none;
+}
+
+.modal-success svg {
+    width: 60px;
+    height: 60px;
+    fill: var(--primary);
+    margin-bottom: 20px;
+}
+
+/* --- Mobile Responsiveness --- */
+
+/* Utility Classes */
+.mobile-only {
+    display: none !important;
+}
+
+.desktop-only {
+    display: inline-block !important;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
     background-color: var(--primary);
     transition: all 0.3s ease;
 }
 
-/* Mobile Media Query */
+/* Mobile Media Query for Navigation */
 @media (max-width: 768px) {
 
     /* Navigation */
@@ -598,319 +793,128 @@ nav {
 
     /* Make dropdown items smaller/indented on mobile */
     .dropdown-content a {
-        overflow: hidden;
+        padding: 8px 0;
+        font-size: 0.85rem;
+        color: #666;
+    }
+}
+
+/* Mobile Responsive Styles (Layout & Typography) */
+@media (max-width: 768px) {
+
+    /* Hero Banner - Overlay Style */
+    .hero-banner {
+        min-height: 400px;
+        /* Restore height */
+        flex-direction: row;
+        /* Restore row direction */
         display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
-    .cat-card img {
+    .hero-bg {
         position: absolute;
-        top: 0;
-        left: 0;
+        /* Restore absolute positioning */
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.6s ease;
-        z-index: 1;
+        z-index: 0;
     }
 
-    .cat-card:hover img {
-        transform: scale(1.05);
+    .hero-banner::before {
+        display: block;
     }
 
-    .cat-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
+    /* Restore overlay */
+    .hero-banner .container {
+        background: transparent;
+        /* Remove solid background */
         width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.3);
-        z-index: 2;
-        transition: background 0.3s;
+        padding: 0 20px;
+        color: white;
+        box-sizing: border-box;
     }
 
-    .cat-card:hover .cat-overlay {
-        background: rgba(47, 79, 79, 0.5);
+    .hero-banner h1 {
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+        /* Restore shadow */
+    }
+
+    /* Font Scaling */
+    .responsive-title {
+        font-size: calc(var(--desktop-font-size) * 0.6) !important;
+    }
+
+    .responsive-body {
+        font-size: calc(var(--desktop-font-size) * 0.8) !important;
+    }
+
+    /* Product Grid */
+    .p-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        /* Allow 2 columns on small screens */
+        gap: 15px;
+    }
+
+    .p-img-box {
+        height: 200px;
+        /* Smaller images */
+    }
+
+    .p-title {
+        font-size: 1rem;
+    }
+
+    .p-price {
+        font-size: 1.1rem;
+    }
+
+    /* Product Detail */
+    .detail-wrapper {
+        flex-direction: column;
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .detail-left,
+    .detail-right {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .detail-title {
+        font-size: 1.8rem;
+    }
+
+    /* Catalog Grid */
+    .cat-grid {
+        grid-template-columns: 1fr;
+        /* Single column */
+        gap: 15px;
+    }
+
+    .cat-card {
+        height: 300px;
     }
 
     .cat-title {
-        position: relative;
-        z-index: 3;
-        font-family: 'Playfair Display', serif;
-        font-size: 2.5rem;
-        /* 字体变大 */
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        border: 3px solid white;
-        padding: 20px 40px;
+        font-size: 1.8rem;
+        padding: 15px 30px;
     }
 
-    @media (max-width: 768px) {
-        .cat-grid {
-            grid-template-columns: 1fr;
-        }
-
-        /* 手机端还是单列 */
+    /* General */
+    .container {
+        padding: 0 15px;
     }
 
-    /* 弹窗样式 */
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 2000;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+    .page-header-alt {
+        padding: 40px 0 20px 0;
     }
 
-    .modal-overlay.show {
-        display: flex;
-        opacity: 1;
+    .full-width-wrapper {
+        margin-bottom: 40px;
     }
 
-    .modal-content {
-        background: white;
-        padding: 40px;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 500px;
-        position: relative;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        transform: translateY(20px);
-        transition: transform 0.3s ease;
+    .full-width-wrapper img {
+        max-height: 300px;
     }
-
-    .modal-overlay.show .modal-content {
-        transform: translateY(0);
-    }
-
-    .modal-close {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: #999;
-        transition: color 0.2s;
-    }
-
-    .modal-close:hover {
-        color: var(--primary);
-    }
-
-    .modal-success {
-        text-align: center;
-        display: none;
-    }
-
-    .modal-success svg {
-        width: 60px;
-        height: 60px;
-        fill: var(--primary);
-        margin-bottom: 20px;
-    }
-
-    /* --- Mobile Responsiveness --- */
-
-    /* Utility Classes */
-    .mobile-only {
-        display: none !important;
-    }
-
-    .desktop-only {
-        display: inline-block !important;
-    }
-
-    /* Hamburger Menu */
-    .hamburger {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-        gap: 5px;
-    }
-
-    .hamburger span {
-        width: 25px;
-        height: 3px;
-        background-color: var(--primary);
-        transition: all 0.3s ease;
-    }
-
-    /* Mobile Media Query */
-    @media (max-width: 768px) {
-
-        /* Navigation */
-        .mobile-only {
-            display: inline-block !important;
-        }
-
-        .desktop-only {
-            display: none !important;
-        }
-
-        .hamburger {
-            display: flex;
-        }
-
-        .nav-links {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: rgba(255, 254, 250, 0.98);
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            gap: 20px;
-        }
-
-        .nav-links.active {
-            display: flex;
-        }
-
-        .dropdown-content {
-            position: static;
-            box-shadow: none;
-            border-top: none;
-            background: transparent;
-            padding: 0;
-            text-align: center;
-            display: none;
-        }
-
-        .dropdown-menu-container:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Make dropdown items smaller/indented on mobile */
-        .dropdown-content a {
-            padding: 8px 0;
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        /* Hero Banner */
-        .hero-banner {
-            min-height: 400px;
-            /* Restore height */
-            flex-direction: row;
-            /* Restore row direction */
-            display: flex;
-        }
-
-        .hero-bg {
-            position: absolute;
-            /* Restore absolute positioning */
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-
-        .hero-banner::before {
-            display: block;
-        }
-
-        /* Restore overlay */
-        .hero-banner .container {
-            background: transparent;
-            /* Remove solid background */
-            width: 100%;
-            padding: 0 20px;
-            color: white;
-            box-sizing: border-box;
-        }
-
-        .hero-banner h1 {
-            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-            /* Restore shadow */
-        }
-
-        /* Font Scaling */
-        .responsive-title {
-            font-size: calc(var(--desktop-font-size) * 0.6) !important;
-        }
-
-        .responsive-body {
-            font-size: calc(var(--desktop-font-size) * 0.8) !important;
-        }
-
-        /* Product Grid */
-        .p-grid {
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            /* Allow 2 columns on small screens */
-            gap: 15px;
-        }
-
-        .p-img-box {
-            height: 200px;
-            /* Smaller images */
-        }
-
-        .p-title {
-            font-size: 1rem;
-        }
-
-        .p-price {
-            font-size: 1.1rem;
-        }
-
-        /* Product Detail */
-        .detail-wrapper {
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .detail-left,
-        .detail-right {
-            width: 100%;
-            min-width: auto;
-        }
-
-        .detail-title {
-            font-size: 1.8rem;
-        }
-
-        /* Catalog Grid */
-        .cat-grid {
-            grid-template-columns: 1fr;
-            /* Single column */
-            gap: 15px;
-        }
-
-        .cat-card {
-            height: 300px;
-        }
-
-        .cat-title {
-            font-size: 1.8rem;
-            padding: 15px 30px;
-        }
-
-        /* General */
-        .container {
-            padding: 0 15px;
-        }
-
-        .page-header-alt {
-            padding: 40px 0 20px 0;
-        }
-
-        .full-width-wrapper {
-            margin-bottom: 40px;
-        }
-
-        .full-width-wrapper img {
-            max-height: 300px;
-        }
-    }
+}
