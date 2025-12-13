@@ -114,7 +114,7 @@
 </style>
 
 <main>
-    <header class="hero-banner">
+    <header class="hero-banner" style="background-image: url('{{ g.settings['hero_banner_upload'] if g.settings['hero_banner_type'] == 'upload' and g.settings['hero_banner_upload'] else g.settings['hero_banner_url'] }}');">
         <img src="{{ g.settings['hero_banner_upload'] if g.settings['hero_banner_type'] == 'upload' and g.settings['hero_banner_upload'] else g.settings['hero_banner_url'] }}"
             class="hero-bg" alt="Hero Banner">
         <div class="container">

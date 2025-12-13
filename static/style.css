@@ -182,44 +182,10 @@ nav {
     font-weight: 700;
 }
 
-/* Hero Banner */
-.hero-banner {
-    position: relative;
-    min-height: 75vh;
-    /* 2/3 Screen Height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    overflow: hidden;
-}
-
-.hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-
-.hero-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.hero-banner .container {
-    position: relative;
-    z-index: 2;
-}
+/* 
+ * Hero Banner Styles are located at the bottom of the file
+ * to override other styles and handle responsiveness correctly.
+ */
 
 /* Deals/New Arrivals 样式 */
 .page-header-alt {
@@ -674,41 +640,97 @@ nav {
     .full-width-wrapper img {
         max-height: 300px;
     }
+}
 
-    /* Hero Banner - Mobile Full Image Overlay */
+/* =========================================
+   HERO BANNER STYLES (NEW)
+   Desktop: Fixed Parallax
+   Mobile: Full Image Overlay
+   ========================================= */
+
+/* Desktop Default Styles */
+.hero-banner {
+    position: relative;
+    min-height: 66vh;
+    /* 2/3 Screen Height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+
+    /* Fixed Background Logic */
+    background-size: cover;
+    background-position: center bottom;
+    /* Bottom alignment as requested (or center) */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Hide the img tag on desktop since we use background-image */
+.hero-bg {
+    display: none;
+}
+
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    /* Slightly darker for better text contrast/legibility */
+    z-index: 1;
+}
+
+.hero-banner .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
     .hero-banner {
         min-height: auto;
         height: auto;
         display: block;
         position: relative;
+        background-image: none !important;
+        /* Disable fixed background */
     }
 
     .hero-bg {
+        display: block;
+        /* Show the img tag */
         position: relative;
         width: 100%;
         height: auto;
         object-fit: contain;
+        /* Show full image without cropping */
         z-index: 0;
-        display: block;
     }
 
     .hero-banner::before {
-        content: '';
         display: block;
-        background: rgba(0, 0, 0, 0.3);
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        /* Ensure overlay exists */
         z-index: 1;
     }
 
+    /* Center text over the image */
     .hero-banner .container {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        /* Perfectly center */
         width: 100%;
         padding: 0 20px;
         color: white;
